@@ -1,15 +1,21 @@
-f = open('chapter.txt', 'r').readlines()
+try:
+    f = open('chapter.txt', 'r').readlines()
+
+except FileNotFoundError:
+    print(f"Файл chapter.txt не найден")
+    exit()
+
 text = "".join(f).split('\n')
-print(text)
-stroka = ''
-oglavlenie = ["Оглавление"]
+string = ''
+content = ["Оглавление"]
 for i in range(len(text)):
     if "Chapter" in text[i] or "Глава" in text[i]:
-        stroka = text[i] + ". " + text[i + 1]
-        oglavlenie.append(stroka)
+        string = text[i] + ". " + text[i + 1]
+        content.append(string)
 
-print(oglavlenie)
 w = open("rechapter.txt", 'w')
-for i in oglavlenie:
+for i in content:
     w.write(i)
     w.write("\n")
+
+w.close()

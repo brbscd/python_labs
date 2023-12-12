@@ -1,6 +1,17 @@
-f = open('matrix.txt', 'r').readlines()
+try:
+    f = open('matrix.txt', 'r').readlines()
+except FileNotFoundError:
+    print(f"Файл matrix.txt не найден")
+    exit()
+
+try:
+    w = open('rematrix.txt', 'w')
+except FileNotFoundError:
+    print(f"Файл rematrix.txt не найден")
+    exit()
+
 g, h, m = [], [], []
-w = open('rematrix.txt', 'w')
+
 #добавляем каждую строку как элемент в массив
 for i in range(len(f)):
     g.append(list(map(int, f[i].split())))
@@ -27,3 +38,5 @@ for i in range(len(h)):
         print(h[i][j], end=' ')
     print()
     w.write("\n")
+
+w.close()
