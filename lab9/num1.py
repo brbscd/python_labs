@@ -7,7 +7,7 @@ except FileNotFoundError:
 
 def work_vector(file, number_count):
     for i in range(number_count):
-        file.pop(-1)
+        file.pop()
     return " ".join(file)
 
 try:
