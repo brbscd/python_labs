@@ -5,7 +5,7 @@ try:
         if author.lower() == 'дальше':
             break
         book = input("Введите название книги, которое Вы хотите добавить: ").split(',')
-        books_dict[author] = books_dict.get(author, []) + book
+        books_dict[author] = book
 
     while True:
         ans = input("Введите фамилию автора для просмотра его работ (для завершения работы введите 'выход':\n").capitalize()
