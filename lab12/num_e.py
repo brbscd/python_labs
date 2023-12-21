@@ -1,9 +1,7 @@
 #e) наименьшее общее кратное двух натуральных чисел
 def nok(a, b):
-    c = a % b
-    if c == 0:
-        return a
-    return a * nok(b, c) // c
+    import math*
+    return (a * b) / math.gcd(a, b)
 
 
 try:
