@@ -116,7 +116,7 @@ print(stroka)
 
 
 #4.1
-a = []
+from collections import Counter
 
 try:
     stroka = open('enter.txt', 'r', encoding='utf-8').readline()
@@ -124,11 +124,8 @@ except FileNotFoundError:
     print("Файл не найден")
     exit()
 
-for i in stroka:
-    if i not in a and i.isalpha():
-        i = i.islower()
-        a.append(i)
+a = Counter(stroka)
 
-
-print(a)
+for key, value in a.items():
+    print(f'{key}: {value}')
 
