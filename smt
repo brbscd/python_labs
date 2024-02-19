@@ -111,3 +111,24 @@ import re
 stroka = open('enter.txt', 'r', encoding='utf-8').readline()
 stroka = re.split(',', stroka)
 print(stroka)
+
+
+
+
+#4.1
+a = []
+
+try:
+    stroka = open('enter.txt', 'r', encoding='utf-8').readline()
+except FileNotFoundError:
+    print("Файл не найден")
+    exit()
+
+for i in stroka:
+    if i not in a and i.isalpha():
+        i = i.islower()
+        a.append(i)
+
+
+print(a)
+
