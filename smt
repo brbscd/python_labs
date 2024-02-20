@@ -129,3 +129,31 @@ a = Counter(stroka)
 for key, value in a.items():
     print(f'{key}: {value}')
 
+
+
+
+
+
+
+
+#4.2
+from collections import Counter
+
+try:
+    stroka = open('enter.txt', 'r', encoding='utf-8').readline()
+    result = open('res1.txt', 'w', encoding='utf-8')
+except FileNotFoundError:
+    print("Файл не найден")
+    exit()
+
+stroka = stroka.lower()
+a = Counter(stroka)
+
+if len(a) == 0:
+    print("Пустой файл")
+    exit()
+
+for key, value in a.items():\
+    result.write(f'<{key}>: {value}\n')
+
+result.close()
