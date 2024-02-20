@@ -24,7 +24,9 @@ else:
 
 
 
-#2 - обработка 0
+
+
+#2
 a = []
 
 
@@ -69,6 +71,11 @@ print(f'Пик последовательности: {max(a)}')
 
 
 
+
+
+
+
+
 #3
 competition_list = {}
 
@@ -76,7 +83,7 @@ try:
     spisok = open('competition.txt', "r", encoding='utf-8').read().split()
     result = open('res.txt', 'w')
 except FileNotFoundError:
-    print("Файл не существует")
+    print("Файл не найден")
     exit()
 
 for i in range(0, len(spisok) - 1, 2):
@@ -96,6 +103,7 @@ for key, value in competition_list.items():
         result.write(f'{key}, {value}\n')
 
 result.close()
+
 
 
 
