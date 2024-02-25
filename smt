@@ -165,3 +165,37 @@ for key, value in a.items():\
     result.write(f'<{key}>: {value}\n')
 
 result.close()
+
+
+
+
+
+
+
+
+
+
+
+
+2 laba
+#1
+import json
+
+
+
+with open ("animals.json", "r") as read_file:
+    data_animals = json.load(read_file)
+
+for bird in data_animals['animals']:
+    if bird['animal_type'] == 'Bird':
+        print(bird)
+
+cnt = 0
+for diurnal in data_animals['animals']:
+    if diurnal['active_time'] == 'Diurnal':
+        cnt += 1
+
+print(f'Количество дневных животных равно {cnt}')
+
+data_animals = sorted(data_animals, key=lambda data: data['weight_min'])
+print(data_animals)
