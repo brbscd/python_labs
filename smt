@@ -1,4 +1,4 @@
-#1
+№1
 string = input("Введите 10 слов: ").split(';')
 contr_string = input("Введите контрольную строку: ")
 
@@ -13,7 +13,6 @@ if len(string) == 10:
     for i in range(len(string)):
         if string[i].startswith(contr_string):
             print(string[i])
-
 else:
     print("Введено несоответствующее количество слов")
     exit()
@@ -24,9 +23,7 @@ else:
 
 
 
-
-
-#2
+№2
 a = []
 
 
@@ -52,6 +49,9 @@ except ValueError:
     print("Введено некорректное значение")
     exit()
 
+if x <= 0:
+    print("Введено некорректное значение, продолжить невозможно")
+    exit()
 
 f(x)
 
@@ -61,11 +61,12 @@ for i in a:
     if cnt == len(a):
         print(i)
         break
-    print(i, '-> ', end='')
+    print(i, '-> ', end='')  //что-то с join
 print(f'Количество элементов: {len(a)}')
 print(f'Пик последовательности: {max(a)}')
 
 
+//изменить имена
 
 
 
@@ -76,7 +77,7 @@ print(f'Пик последовательности: {max(a)}')
 
 
 
-#3
+№3
 competition_list = {}
 
 try:
@@ -89,6 +90,10 @@ except FileNotFoundError:
 for i in range(0, len(spisok) - 1, 2):
     competition_list[spisok[i]] = spisok[i + 1]
 
+new_d = {}
+for k,v in competition_list.items():
+    new_d[k] = int(v)
+
 sorted_comp_grade = sorted(competition_list.items(), key=lambda item: item[1])
 sorted_comp_name = sorted(competition_list.items())
 
@@ -96,10 +101,14 @@ print('Изначальный словарь: \n', competition_list)
 print('Отсортированный по баллам: \n', sorted_comp_grade)
 print('Отсортированный по имени: \n', sorted_comp_name)
 
-n = int(input('Введите количество баллов: '))
+try:
+    bal = int(input('Введите количество баллов: '))
+except ValueError:
+    print("Введено не числовое значение")
+    exit()
 
 for key, value in competition_list.items():
-    if int(value) > n:
+    if int(value) > bal:
         result.write(f'{key}, {value}\n')
 
 result.close()
@@ -111,40 +120,7 @@ result.close()
 
 
 
-
-#4
-import re
-
-
-stroka = open('enter.txt', 'r', encoding='utf-8').readline()
-stroka = re.split(',', stroka)
-print(stroka)
-
-
-
-
-#4.1
-from collections import Counter
-
-try:
-    stroka = open('enter.txt', 'r', encoding='utf-8').readline()
-except FileNotFoundError:
-    print("Файл не найден")
-    exit()
-
-a = Counter(stroka)
-
-for key, value in a.items():
-    print(f'{key}: {value}')
-
-
-
-
-
-
-
-
-#4.2
+№4
 from collections import Counter
 
 try:
@@ -161,16 +137,10 @@ if len(a) == 0:
     print("Пустой файл")
     exit()
 
-for key, value in a.items():\
+for key, value in a.items():
     result.write(f'<{key}>: {value}\n')
 
 result.close()
-
-
-
-
-
-
 
 
 
