@@ -1,22 +1,33 @@
 №1
+def checking_the_string(string):
+    if len(string) != 10:
+        print("Введено несоответствующее количество слов")
+        exit()
+
+    for i in range(len(string)):
+        if string[i].isalpha():
+            continue
+        if len(string) == 1 and not (string[i].isalpha()):
+            print("Введена пустая строка")
+            exit()
+        else:
+            print("Введено что-то кроме букв")
+            exit()
+
+
 string = input("Введите 10 слов: ").split(';')
 contr_string = input("Введите контрольную строку: ")
 
-for i in range(len(string)):
-    if string[i].isalpha():
-        continue
-    else:
-        print("Введено что-то кроме букв")
-        exit()
-
-if len(string) == 10:
-    for i in range(len(string)):
-        if string[i].startswith(contr_string):
-            print(string[i])
-else:
-    print("Введено несоответствующее количество слов")
+if len(string) == 0:
+    print("Введена пустая строка")
     exit()
 
+checking_the_string(string)
+checking_the_string(contr_string)
+
+for i in range(len(string)):
+    if string[i].startswith(contr_string):
+        print(string[i])
 
 
 
@@ -24,49 +35,41 @@ else:
 
 
 №2
-a = []
+mas_of_nums = []
 
 
-def f(current):
-    if len(a) == 0:
-        a.append(current)
+def turning_into_1(current):
+    if len(mas_of_nums) == 0:
+        mas_of_nums.append(current)
     if current > 1:
         if current % 2 == 0:
             current //= 2
         else:
             current = current * 3 + 1
     if current == 1:
-        a.append(1)
+        mas_of_nums.append(1)
         return
-    a.append(current)
-    return f(current)
+    mas_of_nums.append(current)
+    return turning_into_1(current)
 
 
 cnt = 0
 try:
     x = int(input('Введите число: '))
 except ValueError:
-    print("Введено некорректное значение")
+    print("Введено некорректное значение, продолжить невозможно")
     exit()
 
 if x <= 0:
     print("Введено некорректное значение, продолжить невозможно")
     exit()
 
-f(x)
+turning_into_1(x)
 
 
-for i in a:
-    cnt += 1
-    if cnt == len(a):
-        print(i)
-        break
-    print(i, '-> ', end='')  //что-то с join
-print(f'Количество элементов: {len(a)}')
-print(f'Пик последовательности: {max(a)}')
-
-
-//изменить имена
+print(' -> '.join(map(str, mas_of_nums)))
+print(f'Количество элементов: {len(mas_of_nums)}')
+print(f'Пик последовательности: {max(mas_of_nums)}')
 
 
 
@@ -78,21 +81,23 @@ print(f'Пик последовательности: {max(a)}')
 
 
 №3
-competition_list = {}
+def convert_to_int_dict(input_dict):
+    return {key: int(value) for key, value in input_dict.items()}
 
+
+competition_list = {}
 try:
-    spisok = open('competition.txt', "r", encoding='utf-8').read().split()
-    result = open('res.txt', 'w')
+    spisok = open('competition.txt', encoding='utf-8').read().split()
 except FileNotFoundError:
     print("Файл не найден")
     exit()
 
+result = open('res.txt', 'w')
+
 for i in range(0, len(spisok) - 1, 2):
     competition_list[spisok[i]] = spisok[i + 1]
 
-new_d = {}
-for k,v in competition_list.items():
-    new_d[k] = int(v)
+competition_list = convert_to_int_dict(competition_list)
 
 sorted_comp_grade = sorted(competition_list.items(), key=lambda item: item[1])
 sorted_comp_name = sorted(competition_list.items())
@@ -124,20 +129,20 @@ result.close()
 from collections import Counter
 
 try:
-    stroka = open('enter.txt', 'r', encoding='utf-8').readline()
+    stroka = open('enter.txt', encoding='utf-8').readline()
     result = open('res1.txt', 'w', encoding='utf-8')
 except FileNotFoundError:
     print("Файл не найден")
     exit()
 
 stroka = stroka.lower()
-a = Counter(stroka)
+stroka = Counter(stroka)
 
-if len(a) == 0:
+if len(stroka) == 0:
     print("Пустой файл")
     exit()
 
-for key, value in a.items():
+for key, value in stroka.items():
     result.write(f'<{key}>: {value}\n')
 
 result.close()
