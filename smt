@@ -155,15 +155,23 @@ result.close()
 2 laba
 #1
 import json
+import os
 
 
+ppath = "./animals.json"
+if not os.path.exists(ppath):
+    exit('не существует')
+if os.path.splitext(ppath)[-1] != '.json':
+    exit("неверное расширение")
 
-with open ("animals.json", "r") as read_file:
+
+with open("animals.json", "r") as read_file:
     data_animals = json.load(read_file)
 
+print("Данные о всех птицах: ")
 for bird in data_animals['animals']:
     if bird['animal_type'] == 'Bird':
-        print(bird)
+        print(bird, "\n")
 
 cnt = 0
 for diurnal in data_animals['animals']:
@@ -172,5 +180,65 @@ for diurnal in data_animals['animals']:
 
 print(f'Количество дневных животных равно {cnt}')
 
-data_animals = sorted(data_animals, key=lambda data: data['weight_min'])
-print(data_animals)
+min_weight = 10000
+animal_name = ''
+for weight in data_animals['animals']:
+    if float(weight['weight_min']) <= min_weight:
+        min_weight = float(weight['weight_min'])
+        animal_name = weight['name']
+
+print(f'\nМинимальный вес имеет {animal_name}, весит {min_weight} кг')
+
+
+
+
+
+#2
+import csv
+import os
+
+
+ppath = "./countries.csv"
+if not os.path.exists(ppath):
+    exit("не существует")
+
+if os.path.splitext(ppath)[-1] != '.csv': 
+    exit("неверное расширение")
+
+try:  
+    min_income = float(input("Enter min income indicator: "))
+    max_income = float(input("Enter max income indicator: "))
+except Exception:
+        exit('ничего не введено')
+
+if (min_income < 0 or max_income < 0) or (min_income > max_income):
+    print('entered number/s < 0 or min income > max income')
+    exit()
+
+csvfile = open(ppath)
+try:
+    countries = csv.reader(csvfile, delimiter=",") #quoting=csv.QUOTE_NONNUMERIC атоматическое преобразование типов данных
+    titles = next(countries)
+    sort_by_inflation = sorted(countries, key=lambda x: float(x[3]), reverse=False)
+    sort_by_income = list(filter(lambda x: min_income <= float(x[2]) <= max_income, sort_by_inflation))
+    if not(sort_by_income):
+        print("There are no countries with this level of income")
+except ValueError:
+    print("empty file or noncorrect value/s")
+    exit()
+
+csvfile.close()
+
+with open("NAMEFILE1.csv", "w") as csvfile: #создашь свои файлики в одной папке с этим файлом сюда введёшь названия
+    file = csv.writer(csvfile, delimiter=",")
+    file.writerow(titles)
+    for line in sort_by_income:
+        file.writerow(line)
+        print(line)
+
+with open("NAMEFILE2.csv", "w") as csvfile:
+    file = csv.writer(csvfile, delimiter=",")
+    file.writerow(titles)
+    for line in sort_by_inflation:
+        file.writerow(line)
+
