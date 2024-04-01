@@ -168,10 +168,12 @@ if os.path.splitext(ppath)[-1] != '.json':
 with open("animals.json", "r") as read_file:
     data_animals = json.load(read_file)
 
+
 print("Данные о всех птицах: ")
-for bird in data_animals['animals']:
-    if bird['animal_type'] == 'Bird':
-        print(bird, "\n")
+data_about_birds = filter(lambda x: x['animal_type'] == 'Bird', data_animals['animals'])
+print(list(data_about_birds))
+
+
 
 cnt = 0
 for diurnal in data_animals['animals']:
@@ -188,6 +190,7 @@ for weight in data_animals['animals']:
         animal_name = weight['name']
 
 print(f'\nМинимальный вес имеет {animal_name}, весит {min_weight} кг')
+
 
 
 
