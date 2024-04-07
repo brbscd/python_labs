@@ -156,6 +156,7 @@ result.close()
 #1
 import json
 import os
+from pprint import pprint
 
 
 ppath = "./animals.json"
@@ -170,8 +171,8 @@ with open("animals.json", "r") as read_file:
 
 
 print("Данные о всех птицах: ")
-data_about_birds = filter(lambda x: x['animal_type'] == 'Bird', data_animals['animals'])
-print(list(data_about_birds))
+data_about_birds = list(filter(lambda x: x['animal_type'] == 'Bird', data_animals['animals']))
+pprint(data_about_birds)
 
 
 
