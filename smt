@@ -246,3 +246,56 @@ with open("NAMEFILE2.csv", "w") as csvfile:
     for line in sort_by_inflation:
         file.writerow(line)
 
+
+
+3 laba
+#1
+import pytest
+
+
+def factorial(n):
+    if type(n) != int:
+        raise TypeError()
+
+    res = 1
+    for i in range(1, n + 1):
+        res *= i
+    return res
+
+
+def test_factorial():
+    assert factorial(3) == 6
+
+
+def test_exception_factorial():
+    with pytest.raises(TypeError):
+        factorial('3')
+
+
+
+
+#2
+import pytest
+
+
+def palindrom(string):
+    if type(string) != str:
+        raise TypeError()
+    if len(string) < 3:
+        return 'no'
+
+    len_of_str = len(string)
+    if string[:(len_of_str / 2)] == reversed(string[-(len_of_str / 2):]):
+        return 'yes'
+    else:
+        return 'no'
+
+
+def test_palindrom():
+    assert palindrom('asysa') == 'yes'
+
+
+def test_exception_palindrom():
+    with pytest.raises(TypeError):
+        palindrom(12321)
+
