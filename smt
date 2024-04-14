@@ -272,6 +272,13 @@ def test_exception_factorial():
         factorial('3')
 
 
+def test_exception_list():
+    with pytest.raises(TypeError):
+        factorial([2, 3])
+
+
+
+
 
 
 #2
@@ -284,18 +291,58 @@ def palindrom(string):
     if len(string) < 3:
         return 'no'
 
-    len_of_str = len(string)
-    if string[:(len_of_str / 2)] == reversed(string[-(len_of_str / 2):]):
+    len_of_str = len(string) // 2
+    if string[:len_of_str] == (string[-len_of_str:])[::-1]:
         return 'yes'
     else:
         return 'no'
 
 
 def test_palindrom():
-    assert palindrom('asysa') == 'yes'
+    assert palindrom('askksa') == 'yes'
 
 
 def test_exception_palindrom():
     with pytest.raises(TypeError):
         palindrom(12321)
+
+
+def test_exception_list():
+    with pytest.raises(TypeError):
+        palindrom(['a', 's', 'k', 'k', 's', 'a'])
+
+
+
+
+
+
+
+#3
+import pytest
+
+
+def count_elem(string):
+    if type(string) != str:
+        raise TypeError()
+
+    cnt = set()
+    for i in range(len(string)):
+        if string.count(string[i]) > 1:
+            cnt.add(string[i])
+
+    return len(cnt)
+
+
+def test_count_elem():
+    assert count_elem('tralalio') == 2
+
+
+def test_exception_count_elem():
+    with pytest.raises(TypeError):
+        count_elem(12321)
+
+
+def test_exception_list():
+    with pytest.raises(TypeError):
+        count_elem(['a', 's', 'u', 'k', 't', 'a'])
 
