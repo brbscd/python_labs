@@ -221,7 +221,7 @@ if (min_income < 0 or max_income < 0) or (min_income > max_income):
 
 csvfile = open(ppath)
 try:
-    countries = csv.reader(csvfile, delimiter=",") #quoting=csv.QUOTE_NONNUMERIC атоматическое преобразование типов данных
+    countries = csv.reader(csvfile, delimiter=",") 
     titles = next(countries)
     sort_by_inflation = sorted(countries, key=lambda x: float(x[3]), reverse=False)
     sort_by_income = list(filter(lambda x: min_income <= float(x[2]) <= max_income, sort_by_inflation))
@@ -233,7 +233,7 @@ except ValueError:
 
 csvfile.close()
 
-with open("NAMEFILE1.csv", "w") as csvfile: #создашь свои файлики в одной папке с этим файлом сюда введёшь названия
+with open("NAMEFILE1.csv", "w") as csvfile: 
     file = csv.writer(csvfile, delimiter=",")
     file.writerow(titles)
     for line in sort_by_income:
