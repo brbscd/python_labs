@@ -415,4 +415,41 @@ else:
 
 
 #3
+import os
+import shutil
+import zipfile
 
+
+src_direct = input("Введите путь к директории src: ")
+dst_direct = input("Введите путь к директории dst: ")
+
+
+if not os.path.exists(src_direct) or not os.path.exists(dst_direct):
+    print("Одна из указанных директорий не существует.")
+else:
+    # Создать путь для директории, в которую будут перемещены фотографии и картинки
+    destination_path = os.path.join(dst_direct, "photos_and_images")
+
+    # Создать директорию, если она не существует
+    if not os.path.exists(destination_path):
+        os.makedirs(destination_path)
+
+    # Переместить все фотографии и картинки из src_directory в destination_path
+    for root, dirs, files in os.walk(src_direct):
+        for file in files:
+            file_path = os.path.join(root, file)
+            # Проверить, является ли файл фотографией или картинкой
+            if file.lower().endswith(('.jpg', '.jpeg', '.png', '.gif')):
+                shutil.move(file_path, destination_path)
+
+    # Создать архив на основе получившейся директории dst_directory
+    zip_file_path = os.path.join(dst_direct, "photos_and_images.zip")
+    with zipfile.ZipFile(zip_file_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for root, dirs, files in os.walk(destination_path):
+            for file in files:
+                file_path = os.path.join(root, file)
+                # Определить относительный путь к файлу относительно директории dst_directory
+                relative_path = os.path.relpath(file_path, dst_direct)
+                zipf.write(file_path, relative_path)
+
+    print("Операция завершена. Фотографии и картинки перемещены и заархивированы.")
