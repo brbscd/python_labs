@@ -346,3 +346,73 @@ def test_exception_list():
     with pytest.raises(TypeError):
         count_elem(['a', 's', 'u', 'k', 't', 'a'])
 
+
+
+
+
+
+
+
+4 laba
+#1
+import fnmatch
+import os
+
+
+direct = input('Введите путь до директории: ')
+if not(direct and os.path.isdir(direct)):
+    exit('Директории не существует')
+
+exx = input('Введите нужное расширение без точки: ')
+if not exx:
+    exit('Введена пустая строка')
+
+list_of_files = []
+
+for root, dirs, fls in os.walk(direct):
+#функция os.walk возвращает кортеж из 3 переменных
+#root испол. для создания пути к файлу
+#dir испол. для получ. имен файлов в текущ. директории
+#dirs ожно испол., если нужно рекурсивно обработ. поддиректории
+    for file in fls:
+        if fnmatch.fnmatch(file, f'*.{exx}'):
+            list_of_files.append(os.path.join(root, file))
+
+
+if list_of_files:
+    for file in list_of_files:
+        print(file)
+else:
+    print('Файлы с введенным расширением не найдены')
+
+
+
+
+
+#2
+import os
+import zipfile
+
+
+zip_file_path = input('Введите путь к заархивированной директории: ')
+
+
+if not os.path.exists(zip_file_path):
+    exit('Указанный файл не существует')
+else:
+    total_size = 0
+
+    with zipfile.ZipFile(zip_file_path, 'r') as zip_file:
+        for file_info in zip_file.infolist():
+            #Метод ZipFile.infolist() возвращает список, содержащий объект
+            #zipfile.ZipInfo() для каждого члена архива
+            total_size += file_info.file_size
+
+    print(f'Суммарный размер файлов в архиве: {total_size} байт')
+
+
+
+
+
+#3
+
