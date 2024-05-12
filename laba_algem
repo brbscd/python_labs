@@ -1,0 +1,10 @@
+import cv2
+
+image = cv2.imread('grayscale1.png')
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+for x in range(len(image_rgb)):
+    for y in range(len(image_rgb[x])):
+        a, b, c = image_rgb[x, y]
+        i1 = x * a + y * b + 1 * c
+        j1 = y *
