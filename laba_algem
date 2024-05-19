@@ -1,10 +1,24 @@
-import cv2
+from PIL import Image
+import numpy as np
 
-image = cv2.imread('grayscale1.png')
-image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-for x in range(len(image_rgb)):
-    for y in range(len(image_rgb[x])):
-        a, b, c = image_rgb[x, y]
-        i1 = x * a + y * b + 1 * c
-        j1 = y *
+image = Image.open('grayscale1.png').convert('L')
+A = np.array(image)
+height, width = A.shape
+B = np.zeros_like(A)
+
+a1, a2, a3 = map(int, input('Введите три значения a1, a2 и a3: ').split(' '))
+b1, b2, b3 = map(int, input('Введите три значения b1, b2 и b3: ').split(' '))
+
+for i in range(height):
+    for j in range(width):
+        i_ = i * a1 + j * a2 + 1 * a3
+        j_ = i * b1 + j * b2 + 1 * b3
+        if (0 <= i_ < height) and (0 <= j_ < width):
+            B[i][j] = A[i_][j_]
+        else:
+            B[i][j] = A[i][j]
+
+result_image = Image.fromarray(B)
+result_image.save('transformed_image.jpg')
+result_image.show()
